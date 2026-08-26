@@ -42,7 +42,7 @@ jobs:
       - name: Build firmware
         working-directory: eurorack
         run: |
-          export PATH="$HOME/arm-toolchain/gcc-arm-none-eabi-4_8-2013q4/bin:$PATH"
+          export PATH="/usr/local/arm-4.8.3/bin:$PATH"
           make -f braids/makefile clean
           make -f braids/makefile
 
