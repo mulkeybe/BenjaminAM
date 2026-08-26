@@ -49,6 +49,8 @@ jobs:
 
       - name: Generate firmware WAV
         working-directory: eurorack
+        env:
+          PYTHONPATH: ${{ github.workspace }}/eurorack
         run: |
           ../.venv/bin/python stm_audio_bootloader/qpsk/encoder.py \
             -s 48000 -b 12000 -c 6000 -p 256 \
