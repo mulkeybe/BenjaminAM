@@ -1,10 +1,12 @@
-name: Build firmware
-  working-directory: eurorack
-  run: |
-    sudo mkdir -p /usr/local/arm-4.8.3
-    sudo cp -R "$HOME/arm/"* /usr/local/arm-4.8.3/
-    make -f braids/makefile clean
-    make -f braids/makefile
+name: Build Braids Firmware
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: "eurorack branch or commit to build"
+        required: true
+        default: "benjaminam-octave-timeout"
 
 jobs:
   build:
