@@ -49,7 +49,7 @@ jobs:
         working-directory: eurorack
         run: |
           export PATH="$HOME/arm-toolchain/gcc-arm-none-eabi-4_8-2013q4/bin:$PATH"
-          .venv/bin/python stm_audio_bootloader/qpsk/encoder.py \
+          ../.venv/bin/python stm_audio_bootloader/qpsk/encoder.py \
             -s 48000 -b 12000 -c 6000 -p 256 \
             build/braids/braids.bin
 
