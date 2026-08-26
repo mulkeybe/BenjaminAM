@@ -39,6 +39,7 @@ jobs:
           tar -xjf gcc-arm-none-eabi.tar.bz2 \
             --strip-components=1 \
             -C /usr/local/arm-4.8.3
+
       - name: Build firmware
         working-directory: eurorack
         run: |
@@ -49,7 +50,6 @@ jobs:
       - name: Generate firmware WAV
         working-directory: eurorack
         run: |
-          export PATH="/usr/local/arm-4.8.3/bin:$PATH"
           ../.venv/bin/python stm_audio_bootloader/qpsk/encoder.py \
             -s 48000 -b 12000 -c 6000 -p 256 \
             build/braids/braids.bin
