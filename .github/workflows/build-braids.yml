@@ -42,10 +42,10 @@ jobs:
       - name: Build firmware
         working-directory: eurorack
         run: |
-          export ARM_GCC="$HOME/arm/bin/arm-none-eabi-"
+          sudo mkdir -p /usr/local/arm-4.8.3
+          sudo cp -R "$HOME/arm/"* /usr/local/arm-4.8.3/
           make -f braids/makefile clean
-          make -f braids/makefile \
-            ARM_GCC="$ARM_GCC"
+          make -f braids/makefile
 
       - name: Generate firmware WAV
         working-directory: eurorack
