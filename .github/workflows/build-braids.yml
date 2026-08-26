@@ -62,7 +62,7 @@ jobs:
 
           file build/braids/braids.wav
 
-          python3 - <<'PY'
+          ../.venv/bin/python - <<'PY'
           import wave
 
           path = "build/braids/braids.wav"
