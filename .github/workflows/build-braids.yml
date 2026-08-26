@@ -1,0 +1,91 @@
+name: Build Braids Firmware
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: "eurorack branch or commit to build"
+        required: true
+        default: "benjaminam-octave-timeout"
+
+jobs:
+  build:
+    runs-on: macos-13
+
+    steps:
+      - name: Check out BenjaminAM
+        uses: actions/checkout@v4
+
+      - name: Check out eurorack source
+        uses: actions/checkout@v4
+        with:
+          repository: mulkeybe/eurorack
+          ref: ${{ inputs.source_ref }}
+          path: eurorack
+          submodules: recursive
+
+      - name: Install build dependencies
+        run: |
+          brew install python@3.9
+          python3 -m pip install --user numpy
+
+      - name: Install ARM GCC 4.8.3
+        run: |
+          curl -L \
+            -o gcc-arm-none-eabi.tar.bz2 \
+            https://launchpad.net/gcc-arm-embedded/4.8/4.8-2013-q4-major/+download/gcc-arm-none-eabi-4_8-2013q4-20131218-mac.tar.bz2
+          mkdir -p "$HOME/arm-toolchain"
+          tar -xjf gcc-arm-none-eabi.tar.bz2 -C "$HOME/arm-toolchain"
+
+      - name: Build firmware
+        working-directory: eurorack
+        run: |
+          export PATH="$HOME/arm-toolchain/gcc-arm-none-eabi-4_8-2013q4/bin:$PATH"
+          make -f braids/makefile clean
+          make -f braids/makefile
+
+      - name: Generate firmware WAV
+        working-directory: eurorack
+        run: |
+          export PATH="$HOME/arm-toolchain/gcc-arm-none-eabi-4_8-2013q4/bin:$PATH"
+          python3 stm_audio_bootloader/qpsk/encoder.py \
+            -s 48000 -b 12000 -c 6000 -p 256 \
+            build/braids/braids.bin
+
+      - name: Validate firmware files
+        working-directory: eurorack
+        run: |
+          test -s build/braids/braids.bin
+          test -s build/braids/braids.hex
+          test -s build/braids/braids.wav
+
+          file build/braids/braids.wav
+
+          python3 - <<'PY'
+          import wave
+
+          path = "build/braids/braids.wav"
+
+          with wave.open(path, "rb") as w:
+              channels = w.getnchannels()
+              width = w.getsampwidth()
+              rate = w.getframerate()
+              frames = w.getnframes()
+
+          assert channels == 1, f"Expected mono WAV, got {channels} channels"
+          assert width == 2, f"Expected 16-bit WAV, got {width * 8}-bit"
+          assert rate == 48000, f"Expected 48 kHz WAV, got {rate} Hz"
+          assert frames > 0, "WAV contains no audio frames"
+
+          print(f"WAV OK: {rate} Hz, {width * 8}-bit, mono, {frames} frames")
+          print(f"Duration: {frames / rate:.3f} seconds")
+          PY
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: braids-${{ inputs.source_ref }}
+          path: |
+            eurorack/build/braids/braids.hex
+            eurorack/build/braids/braids.bin
+            eurorack/build/braids/braids.wav
