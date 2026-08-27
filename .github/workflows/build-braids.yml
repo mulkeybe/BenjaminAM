@@ -34,23 +34,31 @@ jobs:
         run: |
           curl -L -o gcc.tar.bz2 \
             https://launchpad.net/gcc-arm-embedded/4.8/4.8-2013-q4-major/+download/gcc-arm-none-eabi-4_8-2013q4-20131218-mac.tar.bz2
+
           mkdir -p "$HOME/arm"
           tar -xjf gcc.tar.bz2 \
             --strip-components=1 \
             -C "$HOME/arm"
 
+          sudo mkdir -p /usr/local/arm-4.8.3
+          sudo cp -R "$HOME/arm/"* /usr/local/arm-4.8.3/
+
       - name: Build firmware
         working-directory: eurorack
         run: |
-          sudo mkdir -p /usr/local/arm-4.8.3
-          sudo cp -R "$HOME/arm/"* /usr/local/arm-4.8.3/
           make -f braids/makefile clean
           make -f braids/makefile
 
+      - name: Generate firmware BIN
+        working-directory: eurorack
+        run: |
+          /usr/local/arm-4.8.3/bin/arm-none-eabi-objcopy \
+            -O binary \
+            build/braids/braids.elf \
+            build/braids/braids.bin
+
       - name: Generate firmware WAV
         working-directory: eurorack
-        env:
-          PYTHONPATH: ${{ github.workspace }}/eurorack
         run: |
           ../.venv/bin/python stm_audio_bootloader/qpsk/encoder.py \
             -s 48000 -b 12000 -c 6000 -p 256 \
