@@ -18,6 +18,18 @@ The current firmware release includes:
 
 The HEX and WAV files are the matching BenjaminAM 2.01 release pair.
 
+## 2.01 Changes
+
+- **Quick OCTV adjustment** — provides rapid octave adjustment without entering the normal settings menu.
+- **Configurable menu timeout** — adds selectable menu timeout behavior.
+- **Press-and-turn timeout adjustment** — while adjusting MTO, turn the encoder to select:
+  - 5 seconds
+  - 10 seconds
+  - 15 seconds
+  - 20 seconds
+- **Display brightness initialization fix** — retained in this release.
+- **Firmware update compatibility** — the 2.01 WAV was generated using the working STM audio bootloader/QPSK process and validated as mono, 16-bit, 48 kHz.
+
 ## Previous Release
 
 ### Braids BenjaminAM 2.0
