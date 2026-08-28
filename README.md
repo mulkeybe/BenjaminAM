@@ -40,19 +40,14 @@ The previous firmware release included:
 - Configurable menu timeout
 - Display brightness initialization fix
 
-### Firmware Files
+For the original 2.0 HEX and WAV files, see the Braids BenjaminAM 2.0 release:
 
-- **Braids_BenjaminAM_2.0.hex** — firmware image for STM32/ST-Link programming.
-- **Braids_BenjaminAM_2.0.wav** — audio firmware file for the Braids audio bootloader.
+https://github.com/mulkeybe/BenjaminAM/releases/tag/2.0
 
-The HEX and WAV files are the matching BenjaminAM 2.0 release pair.
+## Source Code
 
+The BenjaminAM firmware source code and development history are maintained in the eurorack repository:
 
-## Source
+https://github.com/mulkeybe/eurorack/tree/benjaminam-octave-timeout
 
-Development source and build history are maintained in the
-
-eurorack repository:
-https://github.com/mulkeybe/eurorack
-
-on the benjaminam-octave-timeout branch.
+The `benjaminam-octave-timeout` branch contains the source modifications, build configuration, and WAV-generation tooling used for the BenjaminAM firmware releases.
