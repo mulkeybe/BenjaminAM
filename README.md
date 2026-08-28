@@ -13,10 +13,11 @@ The current firmware release includes:
 
 ### Firmware Files
 
-- **Braids_BenjaminAM_2.01.hex** — firmware image for STM32/ST-Link programming.
-- **Braids_BenjaminAM_2.01.wav** — audio firmware file for the Braids audio bootloader.
+The official 2.01 HEX and WAV binaries are published with the
+[eurorack 2.01 release](https://github.com/mulkeybe/eurorack/releases/tag/2.01).
 
-The HEX and WAV files are the matching BenjaminAM 2.01 release pair.
+- **HEX** — firmware image for STM32/ST-Link programming.
+- **WAV** — audio firmware file for the Braids audio bootloader.
 
 ## 2.01 Changes
 
