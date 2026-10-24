@@ -2,53 +2,33 @@
 
 Custom firmware releases for Mutable Instruments Braids.
 
-## Braids BenjaminAM 2.01
+Development has moved to the [eurorack repository](https://github.com/mulkeybe/eurorack). The latest release is **Braids BenjaminAM 2.01a**.
 
-The current firmware release includes:
+## Braids BenjaminAM 2.01a
 
-- Quick octave adjustment (OCTV)
-- Configurable menu timeout
-- Display brightness initialization fix
-- Press-and-turn menu timeout adjustment
+[View the release and download the firmware](https://github.com/mulkeybe/eurorack/releases/tag/2.01a).
+
+This update includes:
+
+- Improved menu navigation and a separate Settings menu
+- Configurable menu timeout (MTO)
+- Quick octave adjustment (OCTV) from the WAVE menu
+- Long-press shortcut back to WAVE
+- Expanded AD attack and decay controls to 20 steps with a revised curve
+- Restored OCTV to the main menu
+- Fixed display brightness initialization
 
 ### Firmware Files
 
-The official 2.01 HEX and WAV binaries are published with the
-[eurorack 2.01 release](https://github.com/mulkeybe/eurorack/releases/tag/2.01).
+Download both firmware files from the [2.01a release page](https://github.com/mulkeybe/eurorack/releases/tag/2.01a).
 
 - **HEX** — firmware image for STM32/ST-Link programming.
 - **WAV** — audio firmware file for the Braids audio bootloader.
 
-## 2.01 Changes
+## Previous Release: Braids BenjaminAM 2.01
 
-- **Quick OCTV adjustment** — provides rapid octave adjustment without entering the normal settings menu.
-- **Configurable menu timeout** — adds selectable menu timeout behavior.
-- **Press-and-turn timeout adjustment** — while adjusting MTO, turn the encoder to select:
-  - 5 seconds
-  - 10 seconds
-  - 15 seconds
-  - 20 seconds
-- **Display brightness initialization fix** — retained in this release.
-- **Firmware update compatibility** — the 2.01 WAV was generated using the working STM audio bootloader/QPSK process and validated as mono, 16-bit, 48 kHz.
-
-## Previous Release
-
-### Braids BenjaminAM 2.0
-
-The previous firmware release included:
-
-- Quick octave adjustment (OCTV)
-- Configurable menu timeout
-- Display brightness initialization fix
-
-For the original 2.0 HEX and WAV files, see the Braids BenjaminAM 2.0 release:
-
-https://github.com/mulkeybe/BenjaminAM/releases/tag/2.0
+[View the 2.01 release and its firmware files](https://github.com/mulkeybe/eurorack/releases/tag/2.01).
 
 ## Source Code
 
-The BenjaminAM firmware source code and development history are maintained in the eurorack repository:
-
-https://github.com/mulkeybe/eurorack/tree/benjaminam-octave-timeout
-
-The `benjaminam-octave-timeout` branch contains the source modifications, build configuration, and WAV-generation tooling used for the BenjaminAM firmware releases.
+The firmware source code and development history are maintained in the [eurorack repository](https://github.com/mulkeybe/eurorack).
